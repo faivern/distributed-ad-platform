@@ -1,0 +1,95 @@
+# ============================================
+#   Visual Studio / ASP.NET Core .gitignore
+# ============================================
+
+# Build results
+bin/
+obj/
+out/
+publish/
+*.dll
+*.exe
+*.app
+*.log
+.env
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core User Secrets
+**/secrets.json
+*.db
+*.db-shm
+*.db-wal
+
+# Entity Framework Migrations snapshots
+*Migrations/*
+!**/Migrations/*.cs
+!**/Migrations/*.Designer.cs
+!**/Migrations/*.resx
+
+# Configuration files that may contain secrets
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+appsettings.*.secret.json
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# OS-generated files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.assets.json
+
+# Logs
+*.log
+logs/
+Logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Publish artifacts
+/dist/
+wwwroot/lib/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Coverage output
+coverage/
+*.coverage
+*.coveragexml
+
+# SQL LocalDB files (recommended!)
+*.mdf
+*.ldf
+
+# SQLite (if used)
+*.sqlite
+*.sqlite-journal
+
+# Obsidian vault (optional)
+.obsidian/
+*.canvas
+
+# VS Code settings
+.vscode/

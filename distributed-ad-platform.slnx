@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AdSystem/AdSystem.csproj" />
+  <Project Path="SubscriberSystem/SubscriberSystem.csproj" />
+</Solution>

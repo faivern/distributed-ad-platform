@@ -1,0 +1,6 @@
+@SubscriberSystem_HostAddress = http://localhost:5072
+
+GET {{SubscriberSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
