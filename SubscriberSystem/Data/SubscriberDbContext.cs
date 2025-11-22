@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
 namespace SubscriberSystem.Data
 {
     public class SubscriberDbContext : DbContext
@@ -10,8 +7,6 @@ namespace SubscriberSystem.Data
             : base(options)
         {
         }
-
         public DbSet<Subscriber> Subscribers { get; set; }
-
     }
 }

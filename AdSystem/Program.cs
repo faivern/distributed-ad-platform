@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using AdSystem.Data;
+using AdSystem.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//connect to db
+builder.Services.AddDbContext<AdsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AdsDb") ?? throw new InvalidOperationException("Connection string 'AdsDb' not found.")));
+
+builder.Services.AddScoped<IAdsService, AdService>();
 
 var app = builder.Build();
 

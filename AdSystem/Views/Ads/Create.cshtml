@@ -1,0 +1,285 @@
+﻿@model AdSystem.Models.AdFormViewModel
+
+
+<!--Create ad-->
+    <body>
+    <div class="container mt-4 mb-5">
+
+        <header class="mb-4">
+            <h1 class="h4">
+                <i class="bi bi-plus-square"></i> Skapa ny annons
+            </h1>
+        </header>
+
+        <article class="card p-4 shadow-sm">
+
+                <!-- Annonsstyp -->
+                <section class="mb-4">
+                    <fieldset>
+                        <legend class="form-label">Välj annonsstyp</legend>
+
+                        <div class="btn-group d-flex gap-3" role="group">
+                            <div class="flex-fill">
+                                <input type="radio" class="btn-check" asp-for="IsCompany" value="Subscription" id="subscription" checked>
+                                <label class="btn btn-outline-primary btn-lg w-100 py-3 btn-opacity-25" for="subscription">Prenumerant (0 kr)</label>
+                            </div>
+
+                            <div class="flex-fill">
+                                <input type="radio" class="btn-check" asp-for="IsCompany" value="Company" id="company">
+                                <label class="btn btn-outline-primary btn-lg w-100 py-3 btn-opacity-25" for="company">Företag (40 kr)</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </section>
+
+
+            <!--SUBSCRIBER FORM-->
+            <form asp-action="Create" asp-controller="Ads" method="post" id="subscription-form">
+
+                <!-- Prenumerationsnummer Search Box -->
+                <section class="mb-4 p-3 border rounded bg-primary bg-opacity-25">
+                    <fieldset>
+                        <legend class="form-label h4">Prenumerationsnummer</legend>
+
+                        <div class="input-group">
+                            <input asp-for="SubscriberId" type="text" class="form-control" placeholder="Ange prenumerationsnummer">
+                            <button class="btn btn-primary">Hämta</button>
+                        </div>
+
+                    </fieldset>
+                </section>
+
+
+                <!-- Kontaktuppgifter -->
+                <section class="mb-4">
+                    <h2 class="h5 mb-3">Kontaktuppgifter</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label">Förnamn</label>
+                            <input type="text" asp-for="FirstName" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label">Efternamn</label>
+                            <input type="text" asp-for="LastName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="SocialSecurity" class="form-label">Personnummer</label>
+                            <input type="text" asp-for="SocialSecurity" class="form-control" placeholder="YYYYMMDD-XXXX">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Phone" class="form-label">Telefon</label>
+                            <input type="text" asp-for="Phone" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label">Utdelningsadress</label>
+                        <input type="text" asp-for="Address" class="form-control">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ZipCode" class="form-label">Postnummer</label>
+                            <input type="text" asp-for="ZipCode" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="City" class="form-label">Ort</label>
+                            <input type="text" asp-for="City" class="form-control">
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- Annonsinnehåll -->
+                <section class="mb-4">
+                    <h2 class="h5 mb-3">Annonsinnehåll</h2>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Rubrik</label>
+                        <input type="text" asp-for="Title" class="form-control" placeholder="Vad säljer du?">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Annonstext</label>
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Beskriv varan…"></textarea>
+
+                    </div>
+                </section>
+
+
+                <!-- Pris -->
+                <section class="mb-4">
+                    <label asp-for="ItemPrice" class="form-label">Varans pris (SEK)</label>
+                    <input type="number" asp-for="ItemPrice" class="form-control">
+                </section>
+
+
+                <!-- Footer -->
+                <footer class="d-flex justify-content-between align-items-center mt-4 bg-secondary bg-opacity-25 p-4 rounded">
+                    <div>
+                    <span class="">Kostnad för annonsering:</span>
+                    <div class="fw-bold">0 kr</div>
+                    </div>
+                    <button class="btn btn-success btn-lg" type="submit">
+                        Publicera Annons
+                    </button>
+                </footer>
+
+            </form>
+            <!--SUBSCRIBER FORM END -->
+
+            <!--COMPANY FORM-->
+            <form asp-action="Create" asp-controller="Ads" method="post" id="company-form" style="display:none;">
+
+                <!-- Kontaktuppgifter -->
+                <section class="mb-4">
+                    <h2 class="h5 mb-3">Kontaktuppgifter</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label">Förnamn</label>
+                            <input type="text" asp-for="FirstName" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label">Efternamn</label>
+                            <input type="text" asp-for="LastName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="SocialSecurity" class="form-label">Personnummer</label>
+                            <input type="text" asp-for="SocialSecurity" class="form-control" placeholder="YYYYMMDD-XXXX">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="Phone" class="form-label">Telefon</label>
+                            <input type="text" asp-for="Phone" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label">Utdelningsadress</label>
+                        <input type="text" asp-for="Address" class="form-control">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ZipCode" class="form-label">Postnummer</label>
+                            <input type="text" asp-for="ZipCode" class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="City" class="form-label">Ort</label>
+                            <input type="text" asp-for="City" class="form-control">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fakturauppgifter -->
+                <section class="mb-4 p-3 border rounded bg-warning bg-opacity-25">
+                    <fieldset>
+                        <legend class="form-label h4">Fakturauppgifter</legend>
+
+                        <div class="mb-3">
+                            <label asp-for="InvoiceAddress" class="form-label">Fakturaadress</label>
+                            <input type="text" asp-for="InvoiceAddress" class="form-control">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="InvoiceZipCode" class="form-label">Postnummer (Faktura)</label>
+                                <input type="text" asp-for="InvoiceZipCode" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="InvoiceCity" class="form-label">Ort (Faktura)</label>
+                                <input type="text" asp-for="InvoiceCity" class="form-control">
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </section>
+
+
+                <!-- Annonsinnehåll -->
+                <section class="mb-4">
+                    <h2 class="h5 mb-3">Annonsinnehåll</h2>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Rubrik</label>
+                        <input type="text" asp-for="Title" class="form-control" placeholder="Vad säljer du?">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Annonstext</label>
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Beskriv varan…"></textarea>
+
+                    </div>
+                </section>
+
+
+                <!-- Pris -->
+                <section class="mb-4">
+                    <label asp-for="ItemPrice" class="form-label">Varans pris (SEK)</label>
+                    <input type="number" asp-for="ItemPrice" class="form-control">
+                </section>
+
+
+                <!-- Footer -->
+                <footer class="d-flex justify-content-between align-items-center mt-4 bg-secondary bg-opacity-25 p-2 rounded">
+                    <div>
+                    <span class="">Kostnad för annonsering:</span>
+                        <div class="fw-bold">40 kr</div>
+                    </div>
+                    <button class="btn btn-success btn-lg" type="submit">
+                        Publicera Annons
+                    </button>
+                </footer>
+            </form>
+
+        </article>
+
+    </div>
+
+    </body>
+
+
+<script>
+    // what form to display depending on radio selection
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const subRadio = document.getElementById("subscription");
+        const compRadio = document.getElementById("company");
+
+        const subForm = document.getElementById("subscription-form");
+        const compForm = document.getElementById("company-form");
+
+        function updateFormVisibility() {
+            if (subRadio.checked) {
+                subForm.style.display = "block";
+                compForm.style.display = "none";
+            } else if (compRadio.checked) {
+                subForm.style.display = "none";
+                compForm.style.display = "block";
+            }
+        }
+
+        updateFormVisibility();
+
+        subRadio.addEventListener("change", updateFormVisibility);
+        compRadio.addEventListener("change", updateFormVisibility);
+    });
+</script>
