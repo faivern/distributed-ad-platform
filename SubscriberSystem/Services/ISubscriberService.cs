@@ -5,5 +5,9 @@ namespace SubscriberSystem.Services
     public interface ISubscriberService
     {
         Subscriber? GetSubscriberById(int id);
+        IEnumerable<Subscriber> GetAllSubscribers();
+        Subscriber CreateSubscriber(Subscriber subscriber);
+        Subscriber? UpdateSubscriber(int id, Subscriber subscriber);
+        bool DeleteSubscriber(int id);
     }
 }

@@ -8,11 +8,13 @@ namespace AdSystem.Controllers
     {
         private readonly IAdsService _adsService;
         private readonly ExchangeRateService _exchangeRateService;
+        private readonly SubscriberSyncService _subscriberSyncService;
 
-        public AdsController(IAdsService adsService, ExchangeRateService exchangeRateService)
+        public AdsController(IAdsService adsService, ExchangeRateService exchangeRateService, SubscriberSyncService subscriberSyncService)
         {
             _adsService = adsService;
             _exchangeRateService = exchangeRateService;
+            _subscriberSyncService = subscriberSyncService;
         }
 
         // displays all ads
@@ -48,29 +50,72 @@ namespace AdSystem.Controllers
             return View(model);
         }
 
-        // handle form post for creating an ad
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdFormViewModel model)
         {
-            // If its NOT a company, ignore OrgNumber validation
+            // Företag: OrgNumber krävs
             if (!model.IsCompany)
             {
                 ModelState.Remove(nameof(model.OrgNumber));
             }
             else if (string.IsNullOrWhiteSpace(model.OrgNumber))
             {
-                ModelState.AddModelError(nameof(model.OrgNumber), "Organisationsnummer är obligatoriskt för företag.");
+                ModelState.AddModelError(nameof(model.OrgNumber),
+                    "Organisationsnummer är obligatoriskt för företag.");
+            }
+
+            // 🔹 Prenumerant: SubscriberId krävs och måste finnas i API
+            if (!model.IsCompany)
+            {
+                if (!model.SubscriberId.HasValue || model.SubscriberId.Value <= 0)
+                {
+                    ModelState.AddModelError(nameof(model.SubscriberId),
+                        "Giltigt prenumerationsnummer krävs.");
+                }
+                else
+                {
+                    var exists = await _subscriberSyncService
+                        .SubscriberExistsAsync(model.SubscriberId.Value);
+
+                    if (!exists)
+                    {
+                        ModelState.AddModelError(nameof(model.SubscriberId),
+                            "Angivet prenumerationsnummer finns inte i prenumerantsystemet.");
+                    }
+                }
+            }
+            else
+            {
+                // Företag: ignorera SubscriberId helt
+                ModelState.Remove(nameof(model.SubscriberId));
             }
 
             if (!ModelState.IsValid)
-            {
                 return View(model);
+
+            // PUT till abonnentsystemet vid prenumerant
+            if (!model.IsCompany && model.SubscriberId.HasValue)
+            {
+                var dto = new SubscriberUpdateDto
+                {
+                    SubscriberId = model.SubscriberId.Value,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    SocialSecurity = model.SocialSecurity,
+                    DeliveryAddress = model.DeliveryAddress,
+                    ZipCode = model.ZipCode,
+                    City = model.City,
+                    Phone = model.Phone
+                };
+
+                await _subscriberSyncService.UpdateSubscriberAsync(dto);
             }
 
             await _adsService.CreateAdAsync(model);
             return RedirectToAction("Index", "Ads");
         }
+
 
 
     }

@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AdsDbContext>(options =>
 
 builder.Services.AddScoped<IAdsService, AdService>();
 builder.Services.AddScoped<IAdvertiserService, AdvertiserService>();
+builder.Services.AddHttpClient<SubscriberSyncService>();
 builder.Services.AddHttpClient<ExchangeRateService>();
 
 var app = builder.Build();

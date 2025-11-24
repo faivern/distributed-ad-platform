@@ -8,6 +8,8 @@ namespace AdSystem.Models
 
         // Who is placing the ad
         public bool IsCompany { get; set; }          // chosen via radio button
+
+      //  [Required(ErrorMessage = "Giltigt prenumerationsnummer krävs")]
         public int? SubscriberId { get; set; }
 
         // Shared contact info

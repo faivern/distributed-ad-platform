@@ -6,6 +6,8 @@
 
 <h2>Alla annonser</h2>
 
+<div class="d-flex justify-content-between">
+    <!--exchange converter-->
 <form method="get" asp-action="Index">
     <label for="currency">Visa pris i:</label>
     <select id="currency" name="currency" onchange="this.form.submit()">
@@ -22,6 +24,11 @@
         }
     </select>
 </form>
+
+<!--display quantity of ads-->
+<p>Antal annonser: @Model.Ads.Count()</p>
+</div>
+
 
 <div class="row g-4 mt-2">
     @foreach (var ad in Model.Ads)
