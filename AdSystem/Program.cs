@@ -12,6 +12,8 @@ builder.Services.AddDbContext<AdsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdsDb") ?? throw new InvalidOperationException("Connection string 'AdsDb' not found.")));
 
 builder.Services.AddScoped<IAdsService, AdService>();
+builder.Services.AddScoped<IAdvertiserService, AdvertiserService>();
+builder.Services.AddHttpClient<ExchangeRateService>();
 
 var app = builder.Build();
 
@@ -32,7 +34,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Ads}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

@@ -1,0 +1,76 @@
+﻿@model AdsIndexViewModel
+
+@{
+    ViewData["Title"] = "Alla Annonser";
+}
+
+<h2>Alla annonser</h2>
+
+<form method="get" asp-action="Index">
+    <label for="currency">Visa pris i:</label>
+    <select id="currency" name="currency" onchange="this.form.submit()">
+        @foreach (var c in Model.AvailableCurrencies)
+        {
+            if (c == Model.SelectedCurrency)
+            {
+                <option value="@c" selected="selected">@c</option>
+            }
+            else
+            {
+                <option value="@c">@c</option>
+            }
+        }
+    </select>
+</form>
+
+<div class="row g-4 mt-2">
+    @foreach (var ad in Model.Ads)
+    {
+        var convertedPrice = Math.Round(ad.AdItemPrice * Model.CurrentRate, 2);
+        var displayType = ad.Advertiser.AdvType == "COMPANY" ? "Företag" : "Prenumerant";
+
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+
+                    <div class="d-flex justify-content-between mb-2">
+                    <span id="advBadge" class="badge shadow-sm">@displayType</span>
+
+                        <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                            @ad.AdCreatedAt.ToString("yyyy-MM-dd")
+                        </p>
+                    </div>
+
+                    <h5 class="card-title">@ad.AdTitle</h5>
+
+                    <p class="card-text flex-grow-1">
+                        @ad.AdDescription
+                    </p>
+
+                    <p class="mt-3 fw-bold text-success">
+                        @convertedPrice @Model.SelectedCurrency
+                    </p>
+
+                    <h6 class="card-subtitle mb-1 text-muted">
+                          @ad.Advertiser.AdvFirstName @ad.Advertiser.AdvLastName
+                    </h6>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const advTypBadges = document.querySelectorAll('#advBadge');
+
+        advTypBadges.forEach(function(badge) {
+            if (badge.textContent.trim() === 'Företag') {
+                badge.classList.add('bg-warning');
+            } else if (badge.textContent.trim() === 'Prenumerant') {
+                badge.classList.add('bg-info');
+            }
+        });
+    });
+</script>

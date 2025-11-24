@@ -16,11 +16,11 @@ namespace SubscriberSystem.Controllers
             _subscriberService = subscriberService;
         }
 
-        // GET api/subscribers/{id}
-        [HttpGet("{id:int}")]
-        public ActionResult<Subscriber> GetSubscriberById(int id)
+        // GET api/subscribers/{subscriberId}
+        [HttpGet("{subscriberId:int}")]
+        public ActionResult<Subscriber> GetSubscriberById(int subscriberId)
         {
-            var subscriber = _subscriberService.GetSubscriberById(id);
+            var subscriber = _subscriberService.GetSubscriberById(subscriberId);
             if (subscriber == null)
             {
                 return NotFound();

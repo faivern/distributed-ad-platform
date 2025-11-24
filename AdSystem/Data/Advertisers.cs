@@ -6,10 +6,10 @@ namespace AdSystem.Data
     [Table("tbl_annonsorer")]
     public class Advertisers
     {
-        [Required]
         [Key]
         [Column("adv_id")]
-        public int? AdvSubscriberId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AdvId { get; set; }  // PK
 
         [Column("adv_type")]
         public string AdvType { get; set; } = null!;
@@ -43,8 +43,5 @@ namespace AdSystem.Data
 
         [Column("adv_invoice_city")]
         public string? AdvInvoiceCity { get; set; } = null!;
-
-
-
     }
 }

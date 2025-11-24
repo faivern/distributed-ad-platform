@@ -8,6 +8,7 @@ namespace AdSystem.Data
     {
         [Key]
         [Column("ad_id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AdId { get; set; }
 
         [Column("ad_title")]
@@ -25,9 +26,10 @@ namespace AdSystem.Data
         [Column("ad_created_at")]
         public DateTime AdCreatedAt { get; set; }
 
-        //FK adv_id
         [Column("adv_id")]
-        public int AdvId { get; set; }
+        public int AdvId { get; set; }  // FK
 
+        [ForeignKey(nameof(AdvId))]
+        public Advertisers Advertiser { get; set; } = null!;
     }
 }

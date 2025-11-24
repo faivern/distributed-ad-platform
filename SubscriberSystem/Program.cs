@@ -15,6 +15,18 @@ builder.Services.AddDbContext<SubscriberDbContext>(options =>
 
 builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 
+//enable CORS in the subscriber API to fetch data from the AdSystem frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAdSystemFrontend",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7294")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 
@@ -27,6 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAdSystemFrontend");
 
 app.MapControllers();
 

@@ -20,12 +20,12 @@
 
                         <div class="btn-group d-flex gap-3" role="group">
                             <div class="flex-fill">
-                                <input type="radio" class="btn-check" asp-for="IsCompany" value="Subscription" id="subscription" checked>
+                                <input type="radio" class="btn-check" asp-for="IsCompany" value="false" id="subscription" checked>
                                 <label class="btn btn-outline-primary btn-lg w-100 py-3 btn-opacity-25" for="subscription">Prenumerant (0 kr)</label>
                             </div>
 
                             <div class="flex-fill">
-                                <input type="radio" class="btn-check" asp-for="IsCompany" value="Company" id="company">
+                                <input type="radio" class="btn-check" asp-for="IsCompany" value="true" id="company">
                                 <label class="btn btn-outline-primary btn-lg w-100 py-3 btn-opacity-25" for="company">Företag (40 kr)</label>
                             </div>
                         </div>
@@ -35,7 +35,9 @@
 
             <!--SUBSCRIBER FORM-->
             <form asp-action="Create" asp-controller="Ads" method="post" id="subscription-form">
+                @Html.AntiForgeryToken()
 
+                <input type="hidden" asp-for="IsCompany" value="false" />
                 <!-- Prenumerationsnummer Search Box -->
                 <section class="mb-4 p-3 border rounded bg-primary bg-opacity-25">
                     <fieldset>
@@ -43,7 +45,7 @@
 
                         <div class="input-group">
                             <input asp-for="SubscriberId" type="text" class="form-control" placeholder="Ange prenumerationsnummer">
-                            <button class="btn btn-primary">Hämta</button>
+                            <button type="button" class="btn btn-primary" id="fetch-subscriber-data">Hämta</button>
                         </div>
 
                     </fieldset>
@@ -58,11 +60,13 @@
                         <div class="col-md-6">
                             <label asp-for="FirstName" class="form-label">Förnamn</label>
                             <input type="text" asp-for="FirstName" class="form-control">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6">
                             <label asp-for="LastName" class="form-label">Efternamn</label>
                             <input type="text" asp-for="LastName" class="form-control">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -70,6 +74,7 @@
                         <div class="mb-3 col-md-6">
                             <label asp-for="SocialSecurity" class="form-label">Personnummer</label>
                             <input type="text" asp-for="SocialSecurity" class="form-control" placeholder="YYYYMMDD-XXXX">
+                            <span asp-validation-for="SocialSecurity" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -77,23 +82,27 @@
                         <div class="mb-3 col-md-6">
                             <label asp-for="Phone" class="form-label">Telefon</label>
                             <input type="text" asp-for="Phone" class="form-control">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Address" class="form-label">Utdelningsadress</label>
-                        <input type="text" asp-for="Address" class="form-control">
+                        <label asp-for="DeliveryAddress" class="form-label">Utdelningsadress</label>
+                        <input type="text" asp-for="DeliveryAddress" class="form-control">
+                        <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="ZipCode" class="form-label">Postnummer</label>
                             <input type="text" asp-for="ZipCode" class="form-control">
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label asp-for="City" class="form-label">Ort</label>
                             <input type="text" asp-for="City" class="form-control">
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                 </section>
@@ -106,12 +115,13 @@
                     <div class="mb-3">
                         <label asp-for="Title" class="form-label">Rubrik</label>
                         <input type="text" asp-for="Title" class="form-control" placeholder="Vad säljer du?">
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Description" class="form-label">Annonstext</label>
                         <textarea asp-for="Description" class="form-control" rows="5" placeholder="Beskriv varan…"></textarea>
-
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </section>
 
@@ -120,6 +130,7 @@
                 <section class="mb-4">
                     <label asp-for="ItemPrice" class="form-label">Varans pris (SEK)</label>
                     <input type="number" asp-for="ItemPrice" class="form-control">
+                    <span asp-validation-for="ItemPrice" class="text-danger"></span>
                 </section>
 
 
@@ -137,9 +148,13 @@
             </form>
             <!--SUBSCRIBER FORM END -->
 
+
+
             <!--COMPANY FORM-->
             <form asp-action="Create" asp-controller="Ads" method="post" id="company-form" style="display:none;">
+                @Html.AntiForgeryToken()
 
+                <input type="hidden" asp-for="IsCompany" value="true" />
                 <!-- Kontaktuppgifter -->
                 <section class="mb-4">
                     <h2 class="h5 mb-3">Kontaktuppgifter</h2>
@@ -148,11 +163,13 @@
                         <div class="col-md-6">
                             <label asp-for="FirstName" class="form-label">Förnamn</label>
                             <input type="text" asp-for="FirstName" class="form-control">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6">
                             <label asp-for="LastName" class="form-label">Efternamn</label>
                             <input type="text" asp-for="LastName" class="form-control">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -160,6 +177,7 @@
                         <div class="mb-3 col-md-6">
                             <label asp-for="SocialSecurity" class="form-label">Personnummer</label>
                             <input type="text" asp-for="SocialSecurity" class="form-control" placeholder="YYYYMMDD-XXXX">
+                            <span asp-validation-for="SocialSecurity" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -167,23 +185,27 @@
                         <div class="mb-3 col-md-6">
                             <label asp-for="Phone" class="form-label">Telefon</label>
                             <input type="text" asp-for="Phone" class="form-control">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Address" class="form-label">Utdelningsadress</label>
-                        <input type="text" asp-for="Address" class="form-control">
+                        <label asp-for="DeliveryAddress" class="form-label">Utdelningsadress</label>
+                        <input type="text" asp-for="DeliveryAddress" class="form-control">
+                        <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="ZipCode" class="form-label">Postnummer</label>
                             <input type="text" asp-for="ZipCode" class="form-control">
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label asp-for="City" class="form-label">Ort</label>
                             <input type="text" asp-for="City" class="form-control">
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                 </section>
@@ -193,20 +215,30 @@
                     <fieldset>
                         <legend class="form-label h4">Fakturauppgifter</legend>
 
-                        <div class="mb-3">
-                            <label asp-for="InvoiceAddress" class="form-label">Fakturaadress</label>
-                            <input type="text" asp-for="InvoiceAddress" class="form-control">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="OrgNumber" class="form-label">Organisationsnummer</label>
+                                <input type="text" asp-for="OrgNumber" class="form-control">
+                                <span asp-validation-for="OrgNumber" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="InvoiceAddress" class="form-label">Fakturaadress</label>
+                                <input type="text" asp-for="InvoiceAddress" class="form-control">
+                                <span asp-validation-for="InvoiceAddress" class="text-danger"></span>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="InvoiceZipCode" class="form-label">Postnummer (Faktura)</label>
                                 <input type="text" asp-for="InvoiceZipCode" class="form-control">
+                                <span asp-validation-for="InvoiceZipCode" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label asp-for="InvoiceCity" class="form-label">Ort (Faktura)</label>
                                 <input type="text" asp-for="InvoiceCity" class="form-control">
+                                <span asp-validation-for="InvoiceCity" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -221,12 +253,13 @@
                     <div class="mb-3">
                         <label asp-for="Title" class="form-label">Rubrik</label>
                         <input type="text" asp-for="Title" class="form-control" placeholder="Vad säljer du?">
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Description" class="form-label">Annonstext</label>
                         <textarea asp-for="Description" class="form-control" rows="5" placeholder="Beskriv varan…"></textarea>
-
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </section>
 
@@ -235,6 +268,7 @@
                 <section class="mb-4">
                     <label asp-for="ItemPrice" class="form-label">Varans pris (SEK)</label>
                     <input type="number" asp-for="ItemPrice" class="form-control">
+                    <span asp-validation-for="ItemPrice" class="text-danger"></span>
                 </section>
 
 
@@ -258,28 +292,75 @@
 
 
 <script>
-    // what form to display depending on radio selection
-    document.addEventListener("DOMContentLoaded", function () {
+        // what form to display depending on radio selection
+        document.addEventListener("DOMContentLoaded", function () {
 
-        const subRadio = document.getElementById("subscription");
-        const compRadio = document.getElementById("company");
+            const subRadio = document.getElementById("subscription");
+            const compRadio = document.getElementById("company");
 
-        const subForm = document.getElementById("subscription-form");
-        const compForm = document.getElementById("company-form");
+            const subForm = document.getElementById("subscription-form");
+            const compForm = document.getElementById("company-form");
 
-        function updateFormVisibility() {
-            if (subRadio.checked) {
-                subForm.style.display = "block";
-                compForm.style.display = "none";
-            } else if (compRadio.checked) {
-                subForm.style.display = "none";
-                compForm.style.display = "block";
+            function updateFormVisibility() {
+                if (subRadio.checked) {
+                    subForm.style.display = "block";
+                    compForm.style.display = "none";
+                } else if (compRadio.checked) {
+                    subForm.style.display = "none";
+                    compForm.style.display = "block";
+                }
             }
-        }
 
-        updateFormVisibility();
+            updateFormVisibility();
 
-        subRadio.addEventListener("change", updateFormVisibility);
-        compRadio.addEventListener("change", updateFormVisibility);
-    });
+            subRadio.addEventListener("change", updateFormVisibility);
+            compRadio.addEventListener("change", updateFormVisibility);
+        });
+
+        // fetch subscriber data when clicking fetch button, through the subscriber api
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const fetchBtn = document.getElementById("fetch-subscriber-data");
+            const subscriptionInput = document.getElementById("SubscriberId");
+            const SUBSCRIBER_API_BASE = "https://localhost:7025";
+
+            if (!fetchBtn || !subscriptionInput) {
+                return; // safety
+            }
+
+            fetchBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                const subscriberId = subscriptionInput.value.trim();
+                if (!subscriberId) {
+                    alert("Vänligen ange ett prenumerationsnummer.");
+                    return;
+                }
+
+            fetch(`${SUBSCRIBER_API_BASE}/api/subscribers/${subscriberId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Prenumerant hittades inte.");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById("FirstName").value       = data.firstName       ?? "";
+                        document.getElementById("LastName").value        = data.lastName        ?? "";
+                        document.getElementById("SocialSecurity").value  = data.socialSecurity  ?? "";
+                        document.getElementById("Phone").value           = data.phone           ?? "";
+                        document.getElementById("DeliveryAddress").value = data.deliveryAddress ?? "";
+                        document.getElementById("ZipCode").value         = data.zipCode         ?? "";
+                        document.getElementById("City").value            = data.city            ?? "";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Ett fel uppstod vid hämtning av prenumerantdata.");
+                    });
+            });
+        });
 </script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
