@@ -11,17 +11,17 @@ public class SubscriberSyncService
         _http.BaseAddress = new Uri("https://localhost:7025/"); // subscriber system
     }
 
+    // Sync and update subscriber information in the external system
     public async Task<bool> UpdateSubscriberAsync(SubscriberUpdateDto dto)
     {
         var response = await _http.PutAsJsonAsync($"api/subscribers/{dto.SubscriberId}", dto);
         return response.IsSuccessStatusCode;
     }
 
-    // Check if subscriber exists by ID 200 OK
+    // Check if subscriber exists by ID
     public async Task<bool> SubscriberExistsAsync(int subscriberId)
     {
         var response = await _http.GetAsync($"api/subscribers/{subscriberId}");
         return response.StatusCode == HttpStatusCode.OK;
     }
 }
-
