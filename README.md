@@ -9,6 +9,12 @@ This project is a .NET-based distributed system designed to manage advertisement
 *   **System-to-System Communication**: The AdSystem communicates with the SubscriberSystem to keep data synchronized.
 *   **Distributed Architecture**: Demonstrates a decoupled architecture with separate services for different business domains.
 
+## 🖼 UI Showcase
+
+| Ad System Web App (Home) | Ad System Web App (Create Ad) | Subscriber Windows UI |
+|:---:|:---:|:---:|
+| ![Ad System Home](docs/screenshots/ad-system-home.png) | ![Ad System Create Ad](docs/screenshots/ad-system-create.png) | ![Subscriber UI](docs/screenshots/subscriber-ui.png) |
+
 ## 🚀 Getting Started
 
 ### Prerequisites
