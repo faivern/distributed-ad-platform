@@ -10,6 +10,7 @@ This project is a .NET-based distributed system designed to manage advertisement
 *   **Distributed Architecture**: Demonstrates a decoupled architecture with separate services for different business domains.
 
 ## 🖼 UI Showcase
+> All data and information displayed in these UI screenshots are faked/mocked for demonstration purposes.
 
 | All Ads (Ad System) | Create Ad (Company) | Create Ad (Subscriber) | Subscriber CRUD (WinForm App) |
 |:---:|:---:|:---:|:---:|
