@@ -11,9 +11,9 @@ This project is a .NET-based distributed system designed to manage advertisement
 
 ## 🖼 UI Showcase
 
-| Ad System Web App (Home) | Ad System Web App (Create Ad) | Subscriber Windows UI |
+| Ad System Web App (Create Ad) | Subscriber System UI (List Subscribers) | Subscriber System UI (Create Subscriber) |
 |:---:|:---:|:---:|
-| ![Ad System Home](docs/screenshots/ad-system-home.png) | ![Ad System Create Ad](docs/screenshots/ad-system-create.png) | ![Subscriber UI](docs/screenshots/subscriber-ui.png) |
+| ![Ad System Create Ad](docs/screenshots/ad-system-create.png) | ![Subscriber UI List](docs/screenshots/subscriber-ui-list.png) | ![Subscriber UI Create](docs/screenshots/subscriber-ui-create.png) |
 
 ## 🚀 Getting Started
 
